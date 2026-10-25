@@ -91,6 +91,11 @@ public extension VNCConnection {
 
             updateMouseButtonState(wheel: wheel,
                                    isDown: false)
+
+            // Send the release too; otherwise consecutive steps merge into one
+            // press (servers see the wheel button held, not N clicks).
+            enqueueMouseEvent(nonNormalizedX: x,
+                              nonNormalizedY: y)
         }
     }
 }
